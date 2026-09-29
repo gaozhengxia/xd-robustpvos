@@ -1,0 +1,17 @@
+# Preserve every committed file byte-for-byte.  `-text` disables all newline
+# translation, in both directions, on every platform.
+#
+# Why this is not cosmetic: `scripts/127_make_docx.py` records the SHA-1 of
+# `docs/MANUSCRIPT.md` **as bytes** (`sha1_file` -> `read_bytes`) in the build
+# manifest, and `--check` compares that recorded value against the file on disk.
+# With the default `core.autocrlf=true` the working tree is rewritten to CRLF on
+# Windows and to LF elsewhere, so a clone on another platform computes a
+# different hash and reports a **false** "the .docx is stale".  Same for
+# `figures_sha1` (taken over `results/figs/FIGURES.json`).
+#
+# For a repository whose selling point is that its own checks can be trusted, a
+# cross-platform false alarm is the worst possible failure: it announces an
+# inconsistency that does not exist.  Measured before this file was added:
+# MANUSCRIPT.md hashed to af7190eb... (CRLF bytes) while the manifest's recorded
+# value matched the CRLF reading only because the working tree was on Windows.
+* -text

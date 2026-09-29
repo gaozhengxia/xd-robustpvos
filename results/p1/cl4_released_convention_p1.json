@@ -1,0 +1,177 @@
+{
+  "source_csv": "results\\p1\\results\\cl4_full_v2.csv",
+  "ab_measurement": "results\\eval_protocol_ab_ext.csv",
+  "correction": {
+    "form": "additive: J&F_released = J&F_ours + 0.5*(F_released - F_ours)",
+    "gain_mean": 0.08610450100912331,
+    "gain_min": 0.0630350348110933,
+    "gain_max": 0.10618876030359303,
+    "F_ratio_mean": 1.327130760028817,
+    "F_ratio_min": 1.144608933480443,
+    "F_ratio_max": 1.7380873096028335,
+    "skip_first_last_mean_delta": -0.0026518965635745143,
+    "gain_per_cell": {
+      "bike-packing/sam2video/clean": 0.08226224434654733,
+      "car-shadow/sam2video/clean": 0.0630350348110933,
+      "gold-fish/sam2video/clean": 0.08420292472779733,
+      "drift-chicane/sam2video/clean": 0.09729873215072227,
+      "bike-packing/dagrs/clean": 0.06627325142632418,
+      "bike-packing/greedy/clean": 0.06998932046093093,
+      "bike-packing/sam2video/fog": 0.10140227300276539,
+      "bike-packing/sam2video/dust": 0.09059942600780613,
+      "bike-packing/sam2video/underwater": 0.09756884400230681,
+      "car-shadow/sam2video/fog": 0.07438494255394246,
+      "drift-chicane/sam2video/fog": 0.10618876030359303,
+      "gold-fish/sam2video/fog": 0.10004825831565073
+    },
+    "why_not_multiplicative": "A multiplicative k on J&F predicted sam2video = 0.9679 with an upper bound of 1.1034 -- above 1.0, which is impossible. The F ratio (1.145..1.738) is not transferable; the additive gain (0.063..0.097) is."
+  },
+  "measurement_scope": "object 1 only, 6 clean cells (4 sam2video, 1 dagrs, 1 greedy; two on the same sequence). Multi-instance sequences are extrapolated.",
+  "dataset_level_segment_equal": {
+    "greedy": {
+      "J&F": 0.6623698886177591,
+      "J&F_released_direct": 0.7480259209909007,
+      "J&F_released_lo": 0.7254049234288525,
+      "J&F_released_hi": 0.7663285904308837,
+      "J_mean": 0.7141974737404431,
+      "F_mean": 0.6105423034942976,
+      "n_segments": 30
+    },
+    "sam2video": {
+      "J&F": 0.8218846464704253,
+      "J&F_released_direct": 0.9057607181024415,
+      "J&F_released_lo": 0.8846710448874527,
+      "J&F_released_hi": 0.9222583543332995,
+      "J_mean": 0.8807091154412972,
+      "F_mean": 0.7630601774992758,
+      "n_segments": 30
+    },
+    "dagrs": {
+      "J&F": 0.6678116375861651,
+      "J&F_released_direct": 0.7534547348982268,
+      "J&F_released_lo": 0.7308466723972583,
+      "J&F_released_hi": 0.7715953998175418,
+      "J_mean": 0.7200730534638791,
+      "F_mean": 0.6155502217078122,
+      "n_segments": 30
+    }
+  },
+  "by_degradation": {
+    "clean": {
+      "greedy": {
+        "J&F": 0.6803287322599486,
+        "J&F_released_direct": 0.7662130873214571,
+        "J&F_released_lo": 0.743363767071042,
+        "J&F_released_hi": 0.78428892068648,
+        "J_mean": 0.726900488139656,
+        "F_mean": 0.6337569763791302,
+        "n_segments": 30
+      },
+      "sam2video": {
+        "J&F": 0.8392589625054908,
+        "J&F_released_direct": 0.9223925062742591,
+        "J&F_released_lo": 0.9019044775934658,
+        "J&F_released_hi": 0.9375835099499632,
+        "J_mean": 0.8921695771757903,
+        "F_mean": 0.7863483478351915,
+        "n_segments": 30
+      },
+      "dagrs": {
+        "J&F": 0.6829634800575956,
+        "J&F_released_direct": 0.7684078728575853,
+        "J&F_released_lo": 0.7459985148686888,
+        "J&F_released_hi": 0.786483706222608,
+        "J_mean": 0.730881892029941,
+        "F_mean": 0.6350450680856947,
+        "n_segments": 30
+      }
+    },
+    "dust": {
+      "greedy": {
+        "J&F": 0.6838107313614414,
+        "J&F_released_direct": 0.7691714216288228,
+        "J&F_released_lo": 0.7468457661725348,
+        "J&F_released_hi": 0.7872659715919544,
+        "J_mean": 0.7363065941623752,
+        "F_mean": 0.631314868557952,
+        "n_segments": 30
+      },
+      "dagrs": {
+        "J&F": 0.6829837630388678,
+        "J&F_released_direct": 0.7681678684851754,
+        "J&F_released_lo": 0.7460187978499612,
+        "J&F_released_hi": 0.786243701850198,
+        "J_mean": 0.7351047164584243,
+        "F_mean": 0.6308628096164226,
+        "n_segments": 30
+      },
+      "sam2video": {
+        "J&F": 0.8285078809798279,
+        "J&F_released_direct": 0.9119653516389702,
+        "J&F_released_lo": 0.8911853496590983,
+        "J&F_released_hi": 0.9279532693983319,
+        "J_mean": 0.8853419624084844,
+        "F_mean": 0.7716737995500598,
+        "n_segments": 30
+      }
+    },
+    "fog": {
+      "greedy": {
+        "J&F": 0.6418780473513144,
+        "J&F_released_direct": 0.7278557380291856,
+        "J&F_released_lo": 0.7049130821624076,
+        "J&F_released_hi": 0.7465562027043761,
+        "J_mean": 0.7014034279224208,
+        "F_mean": 0.5823526667813188,
+        "n_segments": 30
+      },
+      "dagrs": {
+        "J&F": 0.6537443369916573,
+        "J&F_released_direct": 0.7395829986508048,
+        "J&F_released_lo": 0.7167793718027509,
+        "J&F_released_hi": 0.7579723116063157,
+        "J_mean": 0.7144940886624462,
+        "F_mean": 0.5929945853175353,
+        "n_segments": 30
+      },
+      "sam2video": {
+        "J&F": 0.8031528614754049,
+        "J&F_released_direct": 0.8879361594245346,
+        "J&F_released_lo": 0.8661576870092509,
+        "J&F_released_hi": 0.9050831922768607,
+        "J_mean": 0.8699749318822811,
+        "F_mean": 0.7363307910685282,
+        "n_segments": 30
+      }
+    },
+    "underwater": {
+      "greedy": {
+        "J&F": 0.6434620434983329,
+        "J&F_released_direct": 0.7287489272857951,
+        "J&F_released_lo": 0.7064970783094259,
+        "J&F_released_hi": 0.7464467242724682,
+        "J_mean": 0.6921793847373199,
+        "F_mean": 0.5947447022587896,
+        "n_segments": 30
+      },
+      "dagrs": {
+        "J&F": 0.6515549702565394,
+        "J&F_released_direct": 0.7372293500986713,
+        "J&F_released_lo": 0.7145900050676327,
+        "J&F_released_hi": 0.7549536063569935,
+        "J_mean": 0.6998115167047047,
+        "F_mean": 0.6032984238115964,
+        "n_segments": 30
+      },
+      "sam2video": {
+        "J&F": 0.8166188809209779,
+        "J&F_released_direct": 0.9004916468202427,
+        "J&F_released_lo": 0.8794366652879957,
+        "J&F_released_hi": 0.916978027861514,
+        "J_mean": 0.8753499902986323,
+        "F_mean": 0.757887771543324,
+        "n_segments": 30
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+\begin{table}[t]
+\centering
+\caption{Spearman rank correlation between image-quality metrics and downstream frame-level J\&F. A near-zero or negative correlation means image quality cannot be used to select a restoration operator.}
+\label{tab:iqa_corr}
+\begin{tabular}{lrrrrrrrr}
+\toprule
+metric & kind & rho & ci\_lo & ci\_hi & p & n & r2 & usable \\
+\midrule
+iqa\_psnr & full-reference & -0.007 & -0.022 & 0.009 & 0.387 & 15992.000 & 0.000 & 0 \\
+iqa\_ssim & full-reference & 0.018 & 0.002 & 0.033 & 0.023 & 15992.000 & 0.000 & 0 \\
+iqa\_laplacian\_var & no-reference & 0.207 & 0.192 & 0.222 & 0.000 & 15992.000 & 0.043 & 0 \\
+iqa\_dark\_channel & no-reference & -0.011 & -0.027 & 0.004 & 0.158 & 15992.000 & 0.000 & 0 \\
+iqa\_contrast & no-reference & 0.008 & -0.008 & 0.024 & 0.290 & 15992.000 & 0.000 & 0 \\
+iqa\_entropy & no-reference & 0.025 & 0.009 & 0.041 & 0.001 & 15992.000 & 0.001 & 0 \\
+iqa\_tenengrad & no-reference & 0.232 & 0.217 & 0.247 & 0.000 & 15992.000 & 0.054 & 0 \\
+iqa\_saturation & no-reference & -0.030 & -0.045 & -0.015 & 0.000 & 15992.000 & 0.001 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}

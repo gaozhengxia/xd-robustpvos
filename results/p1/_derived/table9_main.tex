@@ -1,0 +1,24 @@
+\begin{table}[t]
+\centering
+\caption{Main results. Mean $\mathcal{J}\&\mathcal{F}$ per degradation type and severity level. $d_{\cdot}$ columns are differences from the greedy baseline.}
+\label{tab:main}
+\begin{tabular}{lrrrrrrr}
+\toprule
+degradation & level & dagrs & greedy & sam2video & d\_dagrs & d\_greedy & d\_sam2video \\
+\midrule
+C1\_fog\_noise & 3.0 & 0.462 & 0.488 & 0.640 & -0.026 & 0.000 & 0.152 \\
+C2\_lowlight\_blur & 3.0 & 0.526 & 0.529 & 0.681 & -0.003 & 0.000 & 0.152 \\
+C3\_rain\_snow & 3.0 & 0.590 & 0.596 & 0.757 & -0.006 & 0.000 & 0.161 \\
+C4\_fog\_blur\_noise & 3.0 & 0.331 & 0.345 & 0.451 & -0.014 & 0.000 & 0.107 \\
+clean & 1.0 & 0.683 & 0.680 & 0.839 & 0.003 & 0.000 & 0.159 \\
+dust & 3.0 & 0.683 & 0.684 & 0.829 & -0.001 & 0.000 & 0.145 \\
+fog & 3.0 & 0.654 & 0.642 & 0.803 & 0.012 & 0.000 & 0.161 \\
+lowlight & 3.0 & 0.614 & 0.606 & 0.788 & 0.008 & 0.000 & 0.182 \\
+motion\_blur & 3.0 & 0.579 & 0.594 & 0.734 & -0.014 & 0.000 & 0.140 \\
+rain & 3.0 & 0.669 & 0.649 & 0.811 & 0.021 & 0.000 & 0.162 \\
+sensor\_noise & 3.0 & 0.667 & 0.653 & 0.820 & 0.014 & 0.000 & 0.167 \\
+snow & 3.0 & 0.673 & 0.650 & 0.819 & 0.022 & 0.000 & 0.169 \\
+underwater & 3.0 & 0.652 & 0.643 & 0.817 & 0.008 & 0.000 & 0.173 \\
+\bottomrule
+\end{tabular}
+\end{table}

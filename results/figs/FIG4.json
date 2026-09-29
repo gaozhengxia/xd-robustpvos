@@ -1,0 +1,504 @@
+{
+  "id": "FIG-4",
+  "title": "Qualitative panel: clean / degraded / memory bank / arm",
+  "generated_by": "scripts/128_fig4_qualitative.py",
+  "table": "Sec. 5.8, Sec. 6.3",
+  "convention": "one frame per column, chosen by the stated frame rule; rows are the two observations and the two predictions; ground truth drawn as a white dashed outline so the prediction rows are readable without a legend",
+  "selection": {
+    "phase": "fog",
+    "level": 3.0,
+    "ranking_subtrahend": "greedy",
+    "n_instances_ranked": 61,
+    "delta_range": [
+      -0.2105904464,
+      0.3233009597
+    ],
+    "selection_rule": "single-degradation fog @ level 3.0, stride 1, seed 0; the 61 instances of the 30-sequence DAVIS val set ranked by dJ = J&F(dagrs) - J&F(greedy); column 1 = argmax dJ, column 2 = nearest the median dJ, column 3 = argmin dJ",
+    "frame_rule": "per column, the frame t* = argmax_t |J_t(dagrs) - J_t(sam2video)|, i.e. where the two predicted rows differ most",
+    "source": "results/p1/results/cl4_full_v2.csv",
+    "source_sha1": {
+      "results/p1/results/cl4_full_v2.csv": "534b6ed3d850fc76af9bea831b62422ee64aa718"
+    },
+    "prose_anchors": [
+      {
+        "role": "best (rescued)",
+        "seq": "bike-packing",
+        "obj_id": 1,
+        "expected_delta": 0.3233,
+        "tol": 5e-05
+      },
+      {
+        "role": "worst (lost)",
+        "seq": "bmx-trees",
+        "obj_id": 2,
+        "expected_delta": -0.2106,
+        "tol": 5e-05
+      }
+    ],
+    "ranked_all": [
+      [
+        "bike-packing",
+        1,
+        0.3233009597,
+        1
+      ],
+      [
+        "india",
+        3,
+        0.2519549038,
+        1
+      ],
+      [
+        "mbike-trick",
+        1,
+        0.1586577386,
+        1
+      ],
+      [
+        "breakdance",
+        1,
+        0.0897927957,
+        1
+      ],
+      [
+        "india",
+        2,
+        0.0875489859,
+        1
+      ],
+      [
+        "shooting",
+        2,
+        0.0864439254,
+        1
+      ],
+      [
+        "gold-fish",
+        3,
+        0.0859373462,
+        1
+      ],
+      [
+        "judo",
+        2,
+        0.0777503745,
+        1
+      ],
+      [
+        "dogs-jump",
+        3,
+        0.0714110108,
+        1
+      ],
+      [
+        "pigs",
+        2,
+        0.0602727723,
+        1
+      ],
+      [
+        "gold-fish",
+        1,
+        0.0472912826,
+        1
+      ],
+      [
+        "scooter-black",
+        1,
+        0.0442802004,
+        1
+      ],
+      [
+        "gold-fish",
+        5,
+        0.0258900456,
+        1
+      ],
+      [
+        "dog",
+        1,
+        0.0226631279,
+        1
+      ],
+      [
+        "judo",
+        1,
+        0.0221085293,
+        1
+      ],
+      [
+        "loading",
+        1,
+        0.020713266,
+        1
+      ],
+      [
+        "kite-surf",
+        3,
+        0.0163313299,
+        1
+      ],
+      [
+        "car-roundabout",
+        1,
+        0.0141195648,
+        1
+      ],
+      [
+        "drift-chicane",
+        1,
+        0.0127681434,
+        1
+      ],
+      [
+        "kite-surf",
+        2,
+        0.0122659281,
+        1
+      ],
+      [
+        "pigs",
+        3,
+        0.0122150945,
+        1
+      ],
+      [
+        "soapbox",
+        2,
+        0.011380472,
+        1
+      ],
+      [
+        "motocross-jump",
+        1,
+        0.0103510334,
+        1
+      ],
+      [
+        "cows",
+        1,
+        0.0093345516,
+        1
+      ],
+      [
+        "dance-twirl",
+        1,
+        0.0087867084,
+        1
+      ],
+      [
+        "gold-fish",
+        2,
+        0.0081939456,
+        1
+      ],
+      [
+        "lab-coat",
+        3,
+        0.0079844399,
+        1
+      ],
+      [
+        "loading",
+        3,
+        0.0070037488,
+        1
+      ],
+      [
+        "scooter-black",
+        2,
+        0.0068054108,
+        1
+      ],
+      [
+        "soapbox",
+        1,
+        0.0049092405,
+        1
+      ],
+      [
+        "paragliding-launch",
+        3,
+        0.0044024231,
+        1
+      ],
+      [
+        "shooting",
+        3,
+        0.003787999,
+        1
+      ],
+      [
+        "lab-coat",
+        5,
+        0.0030953843,
+        1
+      ],
+      [
+        "car-shadow",
+        1,
+        0.0028217334,
+        1
+      ],
+      [
+        "loading",
+        2,
+        0.0022939585,
+        1
+      ],
+      [
+        "pigs",
+        1,
+        0.0019030811,
+        1
+      ],
+      [
+        "horsejump-high",
+        2,
+        0.0017461974,
+        1
+      ],
+      [
+        "paragliding-launch",
+        2,
+        0.0016005689,
+        1
+      ],
+      [
+        "dogs-jump",
+        2,
+        0.0014546877,
+        1
+      ],
+      [
+        "camel",
+        1,
+        0.0013491372,
+        1
+      ],
+      [
+        "lab-coat",
+        4,
+        -0.0004150785,
+        1
+      ],
+      [
+        "blackswan",
+        1,
+        -0.000639723,
+        1
+      ],
+      [
+        "bmx-trees",
+        1,
+        -0.0015484471,
+        1
+      ],
+      [
+        "paragliding-launch",
+        1,
+        -0.0018649723,
+        1
+      ],
+      [
+        "soapbox",
+        3,
+        -0.0023820413,
+        1
+      ],
+      [
+        "goat",
+        1,
+        -0.0026125213,
+        1
+      ],
+      [
+        "horsejump-high",
+        1,
+        -0.0029316566,
+        1
+      ],
+      [
+        "libby",
+        1,
+        -0.0032152472,
+        1
+      ],
+      [
+        "bike-packing",
+        2,
+        -0.0039235736,
+        1
+      ],
+      [
+        "lab-coat",
+        1,
+        -0.0063531452,
+        1
+      ],
+      [
+        "parkour",
+        1,
+        -0.0066173661,
+        1
+      ],
+      [
+        "gold-fish",
+        4,
+        -0.0067965377,
+        1
+      ],
+      [
+        "drift-straight",
+        1,
+        -0.0167395106,
+        1
+      ],
+      [
+        "lab-coat",
+        2,
+        -0.0185534019,
+        1
+      ],
+      [
+        "motocross-jump",
+        2,
+        -0.0324846185,
+        1
+      ],
+      [
+        "dogs-jump",
+        1,
+        -0.0365438555,
+        1
+      ],
+      [
+        "shooting",
+        1,
+        -0.0639309281,
+        1
+      ],
+      [
+        "kite-surf",
+        1,
+        -0.1294066006,
+        1
+      ],
+      [
+        "mbike-trick",
+        2,
+        -0.1618331382,
+        1
+      ],
+      [
+        "india",
+        1,
+        -0.1865305275,
+        1
+      ],
+      [
+        "bmx-trees",
+        2,
+        -0.2105904464,
+        1
+      ]
+    ],
+    "columns": [
+      {
+        "role": "best (rescued)",
+        "seq": "bike-packing",
+        "obj_id": 1,
+        "delta_vs_greedy": 0.3233009597,
+        "n_rows": 1
+      },
+      {
+        "role": "median",
+        "seq": "paragliding-launch",
+        "obj_id": 3,
+        "delta_vs_greedy": 0.0044024231,
+        "n_rows": 1
+      },
+      {
+        "role": "worst (lost)",
+        "seq": "bmx-trees",
+        "obj_id": 2,
+        "delta_vs_greedy": -0.2105904464,
+        "n_rows": 1
+      }
+    ]
+  },
+  "frame_rule": "per column, the frame t* = argmax_t |J_t(dagrs) - J_t(sam2video)|, i.e. where the two predicted rows differ most",
+  "arms": [
+    "sam2video",
+    "dagrs"
+  ],
+  "phase": "fog",
+  "level": 3.0,
+  "per_column": {
+    "bike-packing|1": {
+      "role": "best (rescued)",
+      "seq": "bike-packing",
+      "obj_id": 1,
+      "delta_vs_greedy": 0.3233009597,
+      "frame": 67,
+      "n_frames": 69,
+      "J&F": {
+        "sam2video": 0.7229447611104358,
+        "dagrs": 0.15995663687201175
+      },
+      "n_reanchors_dagrs": 0
+    },
+    "paragliding-launch|3": {
+      "role": "median",
+      "seq": "paragliding-launch",
+      "obj_id": 3,
+      "delta_vs_greedy": 0.0044024231,
+      "frame": 2,
+      "n_frames": 80,
+      "J&F": {
+        "sam2video": 0.16374616454374535,
+        "dagrs": 0.2541688111516284
+      },
+      "n_reanchors_dagrs": 0
+    },
+    "bmx-trees|2": {
+      "role": "worst (lost)",
+      "seq": "bmx-trees",
+      "obj_id": 2,
+      "delta_vs_greedy": -0.2105904464,
+      "frame": 74,
+      "n_frames": 80,
+      "J&F": {
+        "sam2video": 0.7794725632787345,
+        "dagrs": 0.18980890391333566
+      },
+      "n_reanchors_dagrs": 0
+    }
+  },
+  "art": {
+    "columns_drawn": [
+      [
+        "bike-packing",
+        1,
+        0.3233009597,
+        67
+      ],
+      [
+        "paragliding-launch",
+        3,
+        0.0044024231,
+        2
+      ],
+      [
+        "bmx-trees",
+        2,
+        -0.2105904464,
+        74
+      ]
+    ],
+    "value_digest": "46356bc1b3cac5bb2a61aa79f696c9eea746ce92",
+    "png": "results/figs/F4_qualitative.png",
+    "pdf": "results/figs/F4_qualitative.pdf",
+    "png_sha1": "376affbb2437dc6d214135f360337f9e8db48359"
+  }
+}

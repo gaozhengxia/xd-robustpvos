@@ -1,0 +1,118 @@
+﻿XD-RobustPVOS / DAG-RS -- archived self-test report
+environment: conda py12-torch (python 3.12.13 / torch 2.12.0.dev+cu128 / RTX 5080 Laptop sm_120)
+regenerate with:  python scripts/00_smoke_test.py
+
+section 6 (Optical flow) added 2026-09-17 after the inverted-warp defect:
+  the propagation step used xs + flow where the forward warp needs xs - flow,
+  which cost the clean baseline ~0.16 mean J&F.  See docs/BASELINE_DIAGNOSIS.md section 5.
+
+====================================================================
+
+XD-RobustPVOS / DAG-RS self-test
+====================================================================
+
+=== 1. Environment ===
+  python      : 3.12.13
+  torch       : 2.12.0.dev20260408+cu128
+  cuda avail  : True
+  gpu         : NVIDIA GeForce RTX 5080 Laptop GPU  sm_120
+  [PASS] RTX 50-series PyTorch build  -- Blackwell (sm_120) detected. PyTorch must be a cu128 build and >= 2.7.0, otherwise you will hit 'no kernel image is available for execution on the device'.
+  [PASS] SAM 2 importable
+  opencv      : 5.0.0
+  scipy       : 1.18.0
+  matplotlib  : 3.11.1
+
+=== 2. Degradation engine ===
+  [PASS] fog is bit-identical for the same (seed, stream_id)  -- max|diff|=0.000e+00
+  [PASS] different stream_id gives a different realisation
+  [PASS] fog severity is monotonically worse (PSNR)  -- PSNR 20.2 > 13.4 > 10.3 > 8.2 > 6.8
+  [PASS] all degradations stay finite and in [0,1]  -- []
+  [PASS] compound C1 differs from its fog member  -- mean|diff|=0.0970
+  [PASS] severity schedule reproducible and in [1,5]  -- range [2.14, 3.86]
+
+=== 3. Restoration operator bank ===
+  [PASS] bank has >= 13 operators  -- M=13
+  [PASS] every operator runs, is deterministic and in range
+  [PASS] dcp dehazing reduces the dark channel (dark-channel prior)  -- 0.735 -> 0.562
+  [PASS] unsharp increases Tenengrad sharpness  -- 5.9 -> 28.1
+
+=== 4. Evidence / Dirichlet math ===
+  [PASS] IoU of a mask with itself is 1
+  [PASS] agreement: the identical candidate scores highest  -- A=[0.8373, 0.8373, 0.2217]
+  [PASS] agreement components all lie in [0,1]
+  [PASS] vacuity rises when hypotheses disagree  -- nu(agree)=0.1111 < nu(disagree)=0.3846
+  [PASS] vacuity bounds hold: 1/(kappa+1) <= nu <= 1  -- lower bound = 0.1111
+  [PASS] beliefs sum to (1 - vacuity)  -- sum(b)=0.888889, 1-nu=0.888889
+  [PASS] fusion with k=2 returns 2 indices and a non-empty mask  -- order=[np.int64(0), np.int64(1)], area=900
+  [PASS] profile starts uniform and not ready
+  [PASS] profile masses sum to 1 after update  -- sum=1.000000
+  [PASS] profile selects exactly j operators  -- selected=[0, 1, 2]
+  [PASS] profile argmax follows the evidence
+  [PASS] mask prompt logits have shape (1,256,256)  -- (1, 256, 256)
+  [PASS] prompt_logits dispatches hard/soft by dtype  -- soft range [-6.00, 1.39] vs hard wall +-8.0
+
+=== 5. Metrics ===
+  [PASS] J(pred==gt) == 1
+  [PASS] F(pred==gt) == 1
+  [PASS] J(disjoint half) == 0.5  -- J=0.5000
+  [PASS] J(pred empty, gt non-empty) == 0
+  [PASS] F(pred empty, gt non-empty) == 0
+  [PASS] F tolerates a 1-pixel shift at dilation=2  -- F=0.900
+  [PASS] jf() returns (1,1,1) for identical masks
+  [PASS] seq_metrics averages per frame  -- J=0.7500
+  [PASS] IQA returns all metrics, finite  -- PSNR=8.31, SSIM=0.694
+
+=== 6. Optical flow ===
+  [PASS] flow magnitude matches the known translation  -- |f|=11.24 vs 11.66
+  [PASS] warp_with_flow propagates forwards (IoU with the true mask > 0.85)  -- IoU=1.000
+  [PASS] the opposite sign is decisively worse (sign is pinned)  -- +f 1.000 vs -f 0.515
+  [PASS] FlowCache chains single-step flows to t>t+1  -- IoU=0.999
+  [PASS] warp_confidence agrees with warp_mask (same warp direction)  -- conf=1.000 area_ratio=1.000
+  [PASS] to_gray accepts uint8 without saturating  -- range=[100, 154]
+  [PASS] to_gray is consistent between float and uint8 input
+
+=== 7. Statistics ===
+  [PASS] bootstrap CI brackets the point estimate  -- 0.0455 in [0.0388, 0.0523]
+  [PASS] Wilcoxon detects a consistent positive shift  -- p=1.86e-09, n=30
+  [PASS] Wilcoxon on identical samples is not significant  -- p=1.000
+  [PASS] Cliff's delta = +1 when group b strictly dominates a  -- delta=+1.000
+  [PASS] Cliff's delta = -1 when group b is strictly dominated  -- delta=-1.000
+  [PASS] Cliff's delta is positive for a noisy but genuine improvement  -- delta=+0.446
+  [PASS] Holm-Bonferroni is monotone and >= raw p  -- raw->adj [0.001, 0.01, 0.04, 0.2] -> [0.004, 0.03, 0.08, 0.2]
+  [PASS] Spearman recovers a near-perfect monotone relation  -- rho=1.0000, p=0.00e+00
+  [PASS] Spearman on independent data is not significant  -- rho=-0.062, p=0.705
+
+=== 8. Full DAG-RS pipeline (dummy backend, synthetic video) ===
+    greedy     J&F=0.2356  J=0.2332  F=0.2380  decisions=0  reanchors=0  encoder_calls=11
+    equal_tta  J&F=0.1935  J=0.1296  F=0.2573  decisions=11  reanchors=0  encoder_calls=143
+    random_op  J&F=0.2310  J=0.2045  F=0.2575  decisions=11  reanchors=0  encoder_calls=11
+    dagrs      J&F=0.2902  J=0.2878  F=0.2926  decisions=4  reanchors=0  encoder_calls=59
+  [PASS] every mode produced a mask for every frame
+  [PASS] no backend call silently fell back to the warped anchor  -- fallbacks=0
+  [PASS] DAG-RS improves over the greedy baseline on compound degradation  -- 0.2356 -> 0.2902 (+0.0546)
+  [PASS] DAG-RS vacuity is recorded on decision frames  -- n_finite=4
+    gating rejections at decision frames: 4
+  [PASS] no NaNs leaked into any output mask
+  [PASS] DAG-RS costs less than equal-TTA (profile prunes the bank)  -- 59 <= 143
+  [PASS] the full pipeline is bit-reproducible
+    dagrs/soft J&F=0.2618  fallbacks=0  frames_differing_from_hard=7
+  [PASS] soft re-prompt path runs end-to-end with no backend fallbacks  -- fallbacks=0, frames=12
+  [PASS] mask_prompt='soft' actually changes the trajectory  -- 7/12 frames differ from the hard wall
+
+=== 9. Configuration plumbing ===
+  [PASS] ablation switch survives the yaml round-trip (dagrs_no_reanchor != dagrs)  -- dagrs.use_reanchor=True, no_reanchor.use_reanchor=False
+  [PASS] equal_tta keeps its arm switches after the yaml round-trip  -- agreement=False, gating=False, profile=False
+  [PASS] yaml tunables reach the mode config  -- mask_prompt=hard, K=5
+  [PASS] unknown overrides are rejected instead of silently ignored
+  [PASS] --mask-prompt soft reaches the DAG-RS config  -- mask_prompt=soft
+  [PASS] ablation arms in code == arms declared in PAPER_FRAMEWORK TABLE-13  -- paper=['A0', 'A1', 'A10', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9']  code=['A0', 'A1', 'A10', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9']
+
+====================================================================
+65/65 checks passed
+
+Environment and pipeline verified. Next:
+  1. download a dataset (DAVIS-2017) into data/DAVIS
+  2. install SAM 2.1 and its checkpoints (see README)
+  3. python scripts/01_build_benchmark.py --quick
+
+EXITCODE=0

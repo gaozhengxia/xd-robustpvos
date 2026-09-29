@@ -1,0 +1,13 @@
+degradation,arm,mean_JF,ci_lo,ci_hi,n_sequences
+clean,dagrs,0.370855,0.276793,0.471522,24
+clean,greedy,0.349491,0.263243,0.44109,24
+clean,sam2video,0.69731,0.60218,0.776647,24
+fog,dagrs,0.27405,0.201209,0.351877,24
+fog,greedy,0.272917,0.203749,0.344308,24
+fog,sam2video,0.579723,0.471383,0.678959,24
+sensor_noise,dagrs,0.322499,0.244155,0.404978,24
+sensor_noise,greedy,0.323784,0.247608,0.40543,24
+sensor_noise,sam2video,0.631107,0.521599,0.729632,24
+C1_fog_noise,dagrs,0.199272,0.15261,0.251517,24
+C1_fog_noise,greedy,0.223155,0.165946,0.285318,24
+C1_fog_noise,sam2video,0.355163,0.266713,0.446245,24

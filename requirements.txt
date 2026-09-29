@@ -1,0 +1,25 @@
+numpy>=1.26
+opencv-python>=4.9
+scipy>=1.11
+matplotlib>=3.8
+pyyaml>=6.0
+tqdm>=4.66
+pandas>=2.1
+# DAVIS/MOSE labels are palette PNGs whose palette INDEX is the object id, so
+# labels are read with Pillow (xdrp/datasets.py::read_label_png) -- OpenCV
+# expands the palette instead of exposing the index.
+pillow>=10.0
+# `skimage.morphology.disk` in the released-evaluator cross-check
+# (scripts/eval_protocol_common.py, 106) and `skimage.measure.find_contours`
+# for the FIG-4 overlay (scripts/128_fig4_qualitative.py).
+scikit-image>=0.22
+
+# ---------------------------------------------------------------------------
+# SAM 2.1 (install SEPARATELY, see README, section 1.5 "Install SAM 2.1"):
+#   git clone https://github.com/facebookresearch/sam2.git
+#   cd sam2 && pip install -e .
+#   cd checkpoints && bash download_ckpts.sh
+# Do NOT add `torch` here: on RTX 50-series (sm_120) you must install the
+# cu128 wheel from the PyTorch index BEFORE anything else, otherwise you get
+# "no kernel image is available for execution on the device".
+# ---------------------------------------------------------------------------

@@ -1,0 +1,91 @@
+# XD-RobustPVOS / DAG-RS default configuration.
+# These values are FIXED before any test-set evaluation (paper Sec. 5.1).
+# Changing them after seeing test results would invalidate the protocol.
+
+dataset:
+  kind: davis                # davis | mose | youtubevos
+  root: data/DAVIS
+  split: val
+
+backend:
+  kind: sam2                 # sam2 | dummy
+  checkpoint: checkpoints/sam2.1_hiera_large.pt
+  model_cfg: configs/sam2.1/sam2.1_hiera_l.yaml
+  device: cuda
+  autocast_dtype: bfloat16   # bfloat16 | float16 | none
+  cache_embeddings: true
+  cache_size: 4
+
+# ---- the benchmark protocol ------------------------------------------------
+protocol:
+  frame_stride: 4            # temporal subsampling (4 => ~10-15 frames/seq on DAVIS)
+  max_frames: 0              # 0 = no cap
+  max_sequences: 0           # 0 = all
+  max_objects: 0             # 0 = every instance, i.e. official DAVIS protocol
+                             # (per-sequence J&F = mean over its objects).
+                             # Was 1 until 2026-09-17: that scored 17 of the 30
+                             # val sequences on a single -- sometimes tiny --
+                             # instance and voided the comparison with published
+                             # DAVIS numbers. See docs/BASELINE_DIAGNOSIS.md §6.
+  dilation: 2                # boundary F tolerance in pixels (DAVIS convention)
+  severity_amp: 0.30         # temporal severity variation amplitude
+  seed: 0
+
+# ---- what to sweep ---------------------------------------------------------
+sweep:
+  # Tier-1 single degradations; add "clean" as the reference row
+  degradations:
+    - clean
+    - fog
+    - lowlight
+    - rain
+    - snow
+    - motion_blur
+    - sensor_noise
+    - underwater
+    - dust
+  levels: [1.0, 2.0, 3.0, 4.0, 5.0]
+
+# Compound degradations -- the paper's headline setting (TABLE-10)
+sweep_compound:
+  degradations:
+    - C1_fog_noise
+    - C2_lowlight_blur
+    - C3_rain_snow
+    - C4_fog_blur_noise
+  levels: [1.0, 2.0, 3.0, 4.0, 5.0]
+
+# ---- DAG-RS hyperparameters (fixed; sensitivity reported in Appendix D) ----
+dagrs:
+  keyframe_stride: 5         # K
+  j_steady: 3                # J
+  j_cold: 0                  # 0 => evaluate the full bank at the first decision frame
+  kappa: 8.0
+  gamma: 2.0
+  top_k_fuse: 2
+  fuse_uniform: false        # ablation A1 only: equal-weight fusion, same operator set
+  tau_vacuity: 0.18         # PROBE: moderate hit rate
+  max_consecutive_uncertain: 1   # PROBE
+  output_when_rejected: fused
+  profile_lambda: 0.45
+  use_reanchor: true
+  reanchor_scales: [1.0, 1.3, 1.8]
+  reanchor_top_ops: 2
+  box_pad: 0.12
+  agreement_weights: [0.45, 0.35, 0.20]
+  # Re-prompt convention for the propagated anchor.
+  #   hard -- warp the binary mask, prompt with a hard +-8 logit wall (default,
+  #           faithful to the released baselines)
+  #   soft -- carry the segmenter's own mask probability across frames and prompt
+  #           with its logit, so the boundary is re-decided from the current
+  #           image. See docs/BASELINE_DIAGNOSIS.md for why this is under test.
+  mask_prompt: hard
+
+# ---- operators -------------------------------------------------------------
+operators:
+  include_slow: false        # set true to add non-local-means (much slower)
+
+# ---- output ---------------------------------------------------------------
+output:
+  results_dir: results
+  figs_dir: results/figs
